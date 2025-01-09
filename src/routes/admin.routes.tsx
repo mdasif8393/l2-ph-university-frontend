@@ -10,7 +10,7 @@ const adminPaths2 = [
     element: <AdminDashboard />,
   },
   {
-    name: "User management",
+    name: "User Management",
     children: [
       {
         name: "Create Admin", // need for side bar
@@ -26,6 +26,16 @@ const adminPaths2 = [
         name: "Create Student",
         path: "/admin/create-student",
         element: <CreateStudent />,
+      },
+    ],
+  },
+  {
+    name: "Course Management",
+    children: [
+      {
+        name: "Offered Course ", // need for side bar
+        path: "/admin/offered-course", // need for router
+        element: <CreateAdmin />, // need for router
       },
     ],
   },
