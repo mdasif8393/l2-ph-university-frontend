@@ -1,17 +1,5 @@
 //* Dynamically make routes
-import { ReactNode } from "react";
-
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
-
-type TUserPath = {
-  name: string;
-  path?: string;
-  element?: ReactNode;
-  children?: TUserPath[];
-};
+import { TRoute, TUserPath } from "../types";
 
 // const routes = [
 // {
