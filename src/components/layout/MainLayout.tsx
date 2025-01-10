@@ -5,7 +5,7 @@ import { adminSidebarItems } from "../../routes/admin.routes";
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = adminSidebarItems;
-// adminSidebarItems[
+// const items = [
 //   {
 //     key: "Dashboard",
 //     label: <NavLink to="/admin/dashboard">Dashboard</NavLink>,
