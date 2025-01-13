@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "antd";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
