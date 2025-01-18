@@ -1,45 +1,54 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, Col, Flex } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import PHForm from "../../../components/form/PHForm";
 import PHInput from "../../../components/form/PHInput";
+import PHSelect from "../../../components/form/PHSelect";
+import {
+  useAddAcademicDepartmentMutation,
+  useGetAllFacultiesQuery,
+} from "../../../redux/features/admin/academicManagement.api";
 
 const CreateAcademicDepartment = () => {
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+  const { data: academicFaculties } = useGetAllFacultiesQuery(undefined);
+  const facultyOptions = academicFaculties?.data?.map((faculty) => ({
+    value: faculty._id,
+    label: faculty.name,
+  }));
 
+  const navigate = useNavigate();
+  const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating...");
 
-    // const name = semesterOptions[Number(data?.name) - 1]?.label;
-
-    // const semesterData = {
-    //   name,
-    //   code: data.name,
-    //   year: data.year,
-    //   startMonth: data.startMonth,
-    //   endMonth: data.endMonth,
-    // };
-
-    // try {
-    //   const res = (await addAcademicSemester(semesterData)) as TResponse;
-    //   if (res?.error) {
-    //     toast.error(res?.error?.data.message, { id: toastId });
-    //   } else {
-    //     toast.success("Academic Semester Created");
-    //   }
-    // } catch (err) {
-    //   toast.error("Something went wrong", { id: toastId });
-    // }
+    try {
+      const res = (await addAcademicDepartment(data)) as TResponse;
+      if (res?.error) {
+        toast.error(res?.error?.data.message, { id: toastId });
+      } else {
+        toast.success("Academic Department Created");
+      }
+      navigate("/admin/academic-department");
+    } catch (err) {
+      toast.error("Something went wrong", { id: toastId });
+    }
   };
   return (
     <div>
       <Flex justify="center" align="center">
         <Col span={6}>
           <PHForm onSubmit={onSubmit}>
+            <PHSelect
+              label="Choose Academic Faculty"
+              name="academicFaculty"
+              options={facultyOptions}
+            />
             <PHInput
               type="text"
-              name="academicDepartment"
-              label="Academic Department"
+              name="name"
+              label="Name of Academic Department"
             />
             <Button htmlType="submit">Submit</Button>
           </PHForm>
