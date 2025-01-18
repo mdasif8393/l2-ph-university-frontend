@@ -1,4 +1,4 @@
-import { TResponseRedux } from "../../../types";
+import { TQueryParam, TResponseRedux } from "../../../types";
 import { TAcademicSemester } from "../../../types/academicManagement";
 import { baseApi } from "../../api/baseApi";
 
@@ -6,18 +6,20 @@ const academicManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSemesters: builder.query({
       query: (args) => {
-        console.log(args);
         const params = new URLSearchParams();
-        params.append(args[0].name, args[0].value);
+        if (args) {
+          args.forEach((item: TQueryParam) => {
+            params.append(item.name, item.value as string);
+          });
+        }
 
         return {
           url: "/academic-semesters",
           method: "GET",
-          params,
+          params: params,
         };
       },
       transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
-        console.log("inside redux", response);
         return {
           data: response.data,
           meta: response.meta,
@@ -31,8 +33,43 @@ const academicManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    addAcademicFaculty: builder.mutation({
+      query: (data) => {
+        console.log(data);
+        return {
+          url: "/academic-faculties/create-academic-faculty",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
+    getAllFaculties: builder.query({
+      query: () => {
+        return {
+          url: "/academic-faculties",
+          method: "GET",
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+    addAcademicDepartment: builder.mutation({
+      query: (data) => ({
+        url: "/academic-departments/create-academic-department",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllSemestersQuery, useAddAcademicSemesterMutation } =
-  academicManagementApi;
+export const {
+  useGetAllSemestersQuery,
+  useAddAcademicSemesterMutation,
+  useAddAcademicFacultyMutation,
+  useGetAllFacultiesQuery,
+} = academicManagementApi;
