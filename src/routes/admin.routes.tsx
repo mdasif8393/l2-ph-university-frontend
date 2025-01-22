@@ -7,6 +7,7 @@ import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcad
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import Courses from "../pages/admin/coursemanagement/Courses";
 import CreateCourse from "../pages/admin/coursemanagement/CreateCourse";
+import OfferedCourse from "../pages/admin/coursemanagement/OfferedCourse";
 import OfferedCourses from "../pages/admin/coursemanagement/OfferedCourses";
 import RegisteredSemesters from "../pages/admin/coursemanagement/RegisteredSemesters";
 import SemesterRegistration from "../pages/admin/coursemanagement/SemesterRegistration";
@@ -17,7 +18,6 @@ import CreateStudent from "../pages/admin/userManagement/CreateStudent";
 import FacultyData from "../pages/admin/userManagement/FacultyData";
 import StudentData from "../pages/admin/userManagement/StudentData";
 import StudentDetails from "../pages/admin/userManagement/StudentDetails";
-import OfferedCourse from "../pages/faculty/OfferedCourse";
 
 export const adminPaths = [
   {
